@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CampusConnect — Ambassador Management Platform</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<div id="loginPage" class="page active">
+  <div class="login-bg">
+    <div class="login-glow"></div>
+    <div class="login-card">
+      <div class="login-logo">
+        <span class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+        <span class="logo-text">CampusConnect</span>
+      </div>
+      <p class="login-tagline">The all-in-one platform for Campus Ambassador programs</p>
+      
+      <div class="login-roles">
+        <!-- Organization Card -->
+        <div class="role-card">
+          <div class="role-icon"><i class="fa-solid fa-building"></i></div>
+          <div class="role-label">Organization</div>
+          <div class="role-desc">Manage ambassadors, assign tasks, track performance</div>
+          <div class="role-btn" onclick="showOrgLogin()">Login as Admin →</div>
+        </div>
+
+        <!-- Ambassador Card -->
+        <div class="role-card">
+          <div class="role-icon"><i class="fa-solid fa-user-graduate"></i></div>
+          <div class="role-label">Ambassador</div>
+          <div class="role-desc">View tasks, earn points, climb the leaderboard</div>
+          <div class="role-btn" onclick="showCandidateLogin()">Login as Ambassador →</div>
+        </div>
+      </div>
+
+      <!-- Hidden Organization Login Form -->
+      <div id="orgLoginForm" class="org-login hidden">
+        <h3>Organization Login</h3>
+        <input type="text" id="orgName" class="form-input" placeholder="Organization Name" />
+        <input type="email" id="orgEmail" class="form-input" placeholder="Organization Email" />
+        <button class="btn-login" onclick="loginOrganization()">Login</button>
+      </div>
+
+      <!-- Hidden Candidate Login Form -->
+      <div id="candidateLoginForm" class="cand-login hidden">
+        <h3>Candidate Login</h3>
+        <input type="text" id="candName" class="form-input" placeholder="Full Name" />
+        <input type="text" id="candCollege" class="form-input" placeholder="College Name" />
+        <input type="email" id="candEmail" class="form-input" placeholder="Email" />
+        <input type="text" id="candOrg" class="form-input" placeholder="Organization Name" />
+        <button class="btn-login" onclick="loginCandidate()">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="appPage" class="page">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-icon-sm"><i class="fa-solid fa-graduation-cap"></i></span>
+      <span>CampusConnect</span>
+    </div>
+    <div class="sidebar-role-badge" id="sidebarRoleBadge"></div>
+    <nav class="sidebar-nav" id="sidebarNav"></nav>
+    <div class="sidebar-bottom">
+      <button class="logout-btn" onclick="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="topbar">
+      <div class="topbar-title" id="topbarTitle">Dashboard</div>
+      <div class="topbar-right">
+        <div class="notif-bell" onclick="toggleNotifPanel()">
+          <i class="fa-solid fa-bell"></i>
+          <span class="notif-badge">3</span>
+        </div>
+        <div class="topbar-user" id="topbarUser"></div>
+      </div>
+    </div>
+
+    <!-- NOTIFICATION PANEL -->
+    <div class="notif-panel" id="notifPanel">
+      <div class="notif-panel-title">Notifications</div>
+      <div class="notif-item"><i class="fa-solid fa-check-circle" style="color:#22c55e"></i> Priya completed "Instagram Post" task</div>
+      <div class="notif-item"><i class="fa-solid fa-trophy" style="color:#f59e0b"></i> Arjun reached Gold rank!</div>
+      <div class="notif-item"><i class="fa-solid fa-clock" style="color:#6366f1"></i> Task deadline in 2 days: "Refer 3 Friends"</div>
+    </div>
+
+    <div class="content-area" id="contentArea"></div>
+  </div>
+</div>
+
+<!-- MILESTONE POPUP -->
+<div class="milestone-overlay" id="milestoneOverlay">
+  <div class="milestone-box">
+    <div class="milestone-icon">🏆</div>
+    <div class="milestone-title">Milestone Reached!</div>
+    <div class="milestone-msg" id="milestoneMsg"></div>
+    <button onclick="closeMilestone()">Awesome!</button>
+  </div>
+</div>
+
+<!-- PROOF UPLOAD MODAL -->
+<div class="modal-overlay" id="proofModal">
+  <div class="modal-box">
+    <div class="modal-title">Submit Proof</div>
+    <div class="modal-sub" id="proofTaskName"></div>
+    <input type="text" id="proofInput" placeholder="Paste link or describe your proof..." class="proof-input" />
+    <div class="modal-actions">
+      <button onclick="closeProofModal()" class="btn-cancel">Cancel</button>
+      <button onclick="submitProof()" class="btn-submit">Submit & Earn Points</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+<!-- Toggle functions -->
+<script>
+function showOrgLogin() {
+  document.getElementById('orgLoginForm').classList.remove('hidden');
+  document.getElementById('candidateLoginForm').classList.add('hidden');
+}
+function showCandidateLogin() {
+  document.getElementById('candidateLoginForm').classList.remove('hidden');
+  document.getElementById('orgLoginForm').classList.add('hidden');
+}
+</script>
+
+</body>
+</html>
